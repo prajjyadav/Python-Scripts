@@ -1,13 +1,9 @@
-#----------------------------------------------
-# Conway's Game of Life
-# More programs at UsingPython.com/programs
-#----------------------------------------------
 
 import random
 import time
-import os
 
-#---------------------------------------------------------------------------
+
+
 
 def initGrid(cols, rows, array):
     for i in range(rows):
@@ -23,10 +19,10 @@ def initGrid(cols, rows, array):
                     arrayRow += [0]
         array += [arrayRow]
 
-#---------------------------------------------------------------------------
+
     
 def printGen(cols, rows, array, genNo):
-    os.system("cls")
+   
 
     print("Game of Life -- Generation " + str(genNo + 1))
     
@@ -40,14 +36,14 @@ def printGen(cols, rows, array, genNo):
                 print(".", end=" ")
         print("\n")
 
-#---------------------------------------------------------------------------
+
 
 def processNextGen(cols, rows, cur, nxt):
     for i in range(1,rows-1):
         for j in range(1,cols-1):
             nxt[i][j] = processNeighbours(i, j, cur)
 
-#---------------------------------------------------------------------------
+
       
 def processNeighbours(x, y, array):
     nCount = 0
@@ -65,13 +61,10 @@ def processNeighbours(x, y, array):
     else:
         return array[x][y]
 
-#---------------------------------------------------------------------------
-############################################################################
-#---------------------------------------------------------------------------
 
-ROWS = 20
-COLS = 50
-GENERATIONS = 50
+ROWS = int(input("Enter the no of rows in the grid."))
+COLS = int(input("Enter the no of columns in the grid."))
+GENERATIONS = int(input("Enter the no of generations."))
 DELAY = 0.2
 
 thisGen = []
