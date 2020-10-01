@@ -1,5 +1,6 @@
 #Coded by Timothy Chua
 #A script to generate mouse movements and clicks to prevent idle status from various applications.
+#Please install pyautogui using "pip install pyautogui"
 
 import pyautogui as auto #The library that contains the automation
 
