@@ -1,57 +1,72 @@
-import random
+import sys
+import os
 
-LOWERCASE_CHARS = tuple(map(chr, xrange(ord('a'), ord('z')+1)))
-UPPERCASE_CHARS = tuple(map(chr, xrange(ord('A'), ord('Z')+1)))
-DIGITS = tuple(map(str, range(0, 10)))
-SPECIALS = ('!', '@', '#', '$', '%', '^', '&', '*')
+end = False
+menu = 0
 
-SEQUENCE = (LOWERCASE_CHARS,
-            UPPERCASE_CHARS,
-            DIGITS,
-            SPECIALS,
-            )
+#Defines Colors
+class color:
+   PURPLE = '\033[1;35;48m'
+   CYAN = '\033[1;36;48m'
+   BOLD = '\033[1;37;48m'
+   BLUE = '\033[1;34;48m'
+   GREEN = '\033[1;32;48m'
+   YELLOW = '\033[1;33;48m'
+   RED = '\033[1;31;48m'
+   BLACK = '\033[1;30;48m'
+   UNDERLINE = '\033[4;37;48m'
+   END = '\033[1;37;0m'
 
-def generate_random_password(total, sequences):
-    r = _generate_random_number_for_each_sequence(total, len(sequences))
+while not end:
+    #Main Menu (Select Options)
+    if menu == 0:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print(color.PURPLE)
+        print("██████╗░░█████╗░░██████╗░██████╗░░░░░░░██████╗░███████╗███╗░░██╗███████╗██████╗░░█████╗░████████╗░█████╗░██████╗░")
+        print("██╔══██╗██╔══██╗██╔════╝██╔════╝░░░░░░██╔════╝░██╔════╝████╗░██║██╔════╝██╔══██╗██╔══██╗╚══██╔══╝██╔══██╗██╔══██╗")
+        print("██████╔╝███████║╚█████╗░╚█████╗░█████╗██║░░██╗░█████╗░░██╔██╗██║█████╗░░██████╔╝███████║░░░██║░░░██║░░██║██████╔╝")
+        print("██╔═══╝░██╔══██║░╚═══██╗░╚═══██╗╚════╝██║░░╚██╗██╔══╝░░██║╚████║██╔══╝░░██╔══██╗██╔══██║░░░██║░░░██║░░██║██╔══██╗")
+        print("██║░░░░░██║░░██║██████╔╝██████╔╝░░░░░░╚██████╔╝███████╗██║░╚███║███████╗██║░░██║██║░░██║░░░██║░░░╚█████╔╝██║░░██║")
+        print("╚═╝░░░░░╚═╝░░╚═╝╚═════╝░╚═════╝░░░░░░░░╚═════╝░╚══════╝╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝")        
+        print("")
+        print(color.GREEN + "1. Generate a Password" )
+        print("2. Exit" + color.END + color.RED)
+        #Option Select
+        opt = input( "Please Select an Option (1-2): " + color.END)
+        #Changes Menu 
+        if opt == "1":
+            menu = 1
+        if opt == "2":
+            menu = 2
+        if opt == "3":
+            menu = 3
+        if opt == "4":
+            menu = 4
 
-    password = []
-    for (population, k) in zip(sequences, r):
-        n = 0
-        while n < k:
-            position = random.randint(0, len(population)-1)
-            password += population[position]
-            n += 1
-    random.shuffle(password)
-    
-    while _is_repeating(password):
-        random.shuffle(password)
-        
-    return ''.join(password)
+    #Menu 1 (Max String Length)
+    if menu == 1:
+        #Header
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print(color.PURPLE + "Generate a Password" + color.END)
+        from random import *
+        #Sets Password character list
+        length = int(input("Select length of password: "))
+        lists = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()"
+        #Selects Random characters from list
+        password =  "".join(choice(lists) for x in range(length))
+        #Prints Password
+        print("Password:", password)
+        print(color.GREEN + "1. Main Menu")
+        print(color.GREEN + "2. Regenerate")
+        print(color.GREEN + "3. Exit" + color.END + color.RED)
+        opt = input("Please Select an Option (1-3): " + color.END)
+        if opt == "1":
+            menu = 0
+        if opt == "2":
+            menu = 1
+        if opt == "3":
+            menu = 2
 
-def _generate_random_number_for_each_sequence(total, sequence_number):
-    """ Generate random sequence with numbers (greater than 0).
-        The number of items equals to 'sequence_number' and
-        the total number of items equals to 'total'
-    """
-    current_total = 0
-    r = []
-    for n in range(sequence_number-1, 0, -1):
-        current = random.randint(1, total - current_total - n)
-        current_total += current
-        r.append(current)
-    r.append(total - sum(r))
-    random.shuffle(r)
-
-    return r
-
-def _is_repeating(password):
-    """ Check if there is any 2 characters repeating consecutively """
-    n = 1
-    while n < len(password):
-        if password[n] == password[n-1]:
-            return True
-        n += 1
-    return False
-
-if __name__ == '__main__':
-    print generate_random_password(random.randint(6, 30), SEQUENCE)
+    if menu == 2:
+        os.system('cls' if os.name == 'nt' else 'clear')
+        exit()
